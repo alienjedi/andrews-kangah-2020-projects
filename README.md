@@ -1,1 +1,1 @@
-# andrews-kangah-2020-projects
+# Andrew's GADS Project Submissions
