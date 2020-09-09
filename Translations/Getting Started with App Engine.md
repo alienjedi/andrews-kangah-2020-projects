@@ -22,7 +22,7 @@ In this lab, you learn how to perform the following tasks:
 
     - Initialize your App Engine app with your project and choose its region:
 
-        gcloud app create --project=$DEVSHELL_PROJECT_ID
+        gcloud app create --project=$DEVSHELL_PROJECT_ID --region=us-central
 
     - Clone the source code repository for a sample application in the hello_world directory:
 
