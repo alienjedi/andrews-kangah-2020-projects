@@ -4,13 +4,13 @@
 
 In this lab, you learn how to perform the following tasks:
 
-    - Provision a Google Compute Engine instance.
+   - Provision a Google Compute Engine instance.
 
-    - Connect to the instance using SSH.
+   - Connect to the instance using SSH.
 
-    - Install software on the instance.
+   - Install software on the instance.
 
-    - Verify the software installation.
+   - Verify the software installation.
 
 
 ## STEPS:
