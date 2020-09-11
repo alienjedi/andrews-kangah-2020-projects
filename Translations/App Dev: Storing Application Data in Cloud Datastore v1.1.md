@@ -5,9 +5,9 @@
 
 In this lab, you will learn how to perform the following tasks:
 
-    - Harness Cloud Shell as your development environment.
+   - Harness Cloud Shell as your development environment.
 
-    - Integrate Cloud Datastore into a NodeJS application.
+  - Integrate Cloud Datastore into a NodeJS application.
 
 
 ## STEPS
