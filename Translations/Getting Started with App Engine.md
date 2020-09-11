@@ -4,13 +4,13 @@
 
 In this lab, you learn how to perform the following tasks:
 
-    - Initialize App Engine.
+   - Initialize App Engine.
 
-    - Preview an App Engine application running locally in Cloud Shell.
+   - Preview an App Engine application running locally in Cloud Shell.
 
-    - Deploy an App Engine application, so that others can reach it.
+   - Deploy an App Engine application, so that others can reach it.
 
-    - Disable an App Engine application, when you no longer want it to be visible.
+   - Disable an App Engine application, when you no longer want it to be visible.
 
 
 ## STEPS:
