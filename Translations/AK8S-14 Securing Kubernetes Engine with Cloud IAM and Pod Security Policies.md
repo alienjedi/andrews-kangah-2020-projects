@@ -4,16 +4,16 @@
 
 In this lab, you learn how to perform the following tasks:
 
-    - Use Cloud IAM to control GKE access
+   - Use Cloud IAM to control GKE access
 
-    - Create and use Pod security policies to control Pod creation
+   - Create and use Pod security policies to control Pod creation
 
-    - Perform IP address and credential rotation
+   - Perform IP address and credential rotation
 
 
 ## IMPORTANT:
 
-	For this lab, Qwiklabs has provisioned you with two user names available in the Connection Details dialog. In this lab we will refer to these accounts as Username 1 and Username 2.
+For this lab, Qwiklabs has provisioned you with two user names available in the Connection Details dialog. In this lab we will refer to these accounts as Username 1 and Username 2.
 
 
 ## STEPS:
@@ -22,26 +22,26 @@ In this lab, you learn how to perform the following tasks:
 
     - Using Username 2 account which has only Viewer Role, try to create a cluster
 
-        - Select the project
+    - Select the project
+      
+         gcloud config set project qwiklabs-gcp-02-bde1eb7afae9
+    
+    - Create cluster cluster-1
 
-	    	gcloud config set project qwiklabs-gcp-02-bde1eb7afae9
+         gcloud container clusters create cluster-1 --num-nodes=3 --zone=us-central1-a
 
-	    - Create cluster cluster-1
-
-	        gcloud container clusters create cluster-1 --num-nodes=3 --zone=us-central1-a
-
-	    - Result: ERROR: (gcloud.container.clusters.create) ResponseError: code=403, message=Required "container.clusters.create" permission(s) for "projects/qwiklabs-gcp-02-bde1eb7afae9".
+	 - Result: ERROR: (gcloud.container.clusters.create) ResponseError: code=403, message=Required "container.clusters.create" permission(s) for "projects/qwiklabs-gcp-02-bde1eb7afae9".
 
 
 ## Grant the GKE Admin Cloud IAM Role to Username 2
 
-    - Using Username 1 account, Grant Admin Cloud IAM Role to Username 2
+   - Using Username 1 account, Grant Admin Cloud IAM Role to Username 2
 
         ### Insert correct command or soo... I hate this
 
 ## Test the access of Username 2
 
-    - Using Username 2 account, test creating clusters
+   - Using Username 2 account, test creating clusters
 
         ### Insert correct command to try creating new cluster with the specified parameters
 
@@ -49,33 +49,33 @@ In this lab, you learn how to perform the following tasks:
 
 ## Grant the ServiceAccountUser IAM Role to Username 2
 
-    - Using Username 1 account
+   - Using Username 1 account
 
-    	### Insert correct command to grant Service Accounts > Service Account User to Username 2 User
+       ### Insert correct command to grant Service Accounts > Service Account User to Username 2 User
 
 
 2. Create and Use Pod Security Policies
 
     - Connect to the GKE cluster
 
-    	- Using Username 1 account
+    - Using Username 1 account
 
-    	    - Create environment variables for the GCP zone and cluster name that were used to create the cluster for this lab.
+    - Create environment variables for the GCP zone and cluster name that were used to create the cluster for this lab.
 
-    	        export my_zone=us-central1-a
+    	export my_zone=us-central1-a
 
-				export my_cluster=standard-cluster-1
+	export my_cluster=standard-cluster-1
 
-		- Configure tab completion for the kubectl command-line tool.
+    - Configure tab completion for the kubectl command-line tool.
 
-			source <(kubectl completion bash)
+	source <(kubectl completion bash)
 
-		- Configure access to your cluster for kubectl:
+    - Configure access to your cluster for kubectl:
 
-		    gcloud container clusters get-credentials $my_cluster --zone $my_zone
+	gcloud container clusters get-credentials $my_cluster --zone $my_zone
 
-			- Result: 	Fetching cluster endpoint and auth data.
-						kubeconfig entry generated for standard-cluster-1.
+	- Result: 	Fetching cluster endpoint and auth data.
+			kubeconfig entry generated for standard-cluster-1.
 
 
     - Create a Pod Security Policy
@@ -120,22 +120,22 @@ In this lab, you learn how to perform the following tasks:
 
 ### Activate Security Policy
 
-    - Enable the PodSecurityPolicy controller:
+   - Enable the PodSecurityPolicy controller:
 
         gcloud beta container clusters update $my_cluster --zone $my_zone --enable-pod-security-policy
 
    
 ## Test the Pod Security Policy
 
-    - Attempt to run the privileged Pod
+   - Attempt to run the privileged Pod
 
-    	Insert correct command
+        Insert correct command
 
 
-    - Edit the privileged-pod.yaml file and remove the two lines at the bottom that invoke the privileged container security context
+   - Edit the privileged-pod.yaml file and remove the two lines at the bottom that invoke the privileged container security context
 
-        sudo nano privileged-pod.yaml
+       sudo nano privileged-pod.yaml
 
-    - Deploy the privileged Pod
+   - Deploy the privileged Pod
 
-        kubectl apply -f privileged-pod.yaml
+       kubectl apply -f privileged-pod.yaml
