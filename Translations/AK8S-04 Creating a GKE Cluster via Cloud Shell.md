@@ -1,15 +1,14 @@
 # LAB: AK8S-04 Creating a GKE Cluster via Cloud Shell
 
-
 ## OBJECTIVES: 
 
 In this lab, you learn how to perform the following tasks:
-   
-    - Use kubectl to build and manipulate GKE clusters
 
-    - Use kubectl and configuration files to deploy Pods
+   - Use kubectl to build and manipulate GKE clusters
 
-    - Use Container Registry to store and deploy containers
+   - Use kubectl and configuration files to deploy Pods
+
+   - Use Container Registry to store and deploy containers
 
 
 
@@ -40,13 +39,12 @@ In this lab, you learn how to perform the following tasks:
 
 ### Use Cloud Shell to authenticate to a GKE cluster and then inspect the kubectl configuration files.
 
-
-    - Create a kubeconfig file with the credentials of the current user (to allow authentication) and provide the endpoint details for a specific cluster (to allow communicating with that cluster through the kubectl command-line tool)
+   - Create a kubeconfig file with the credentials of the current user (to allow authentication) and provide the endpoint details for a specific cluster (to allow communicating with that cluster through the kubectl command-line tool)
 
         gcloud container clusters get-credentials $my_cluster --zone $my_zone
 
 
-    - Open the kubeconfig file with the nano text editor to view its content:
+   - Open the kubeconfig file with the nano text editor to view its content:
 
         nano ~/.kube/config
 
@@ -99,78 +97,78 @@ In this lab, you learn how to perform the following tasks:
 ### Use kubectl to deploy Pods to GKE
 
 
-    - Deploy the latest version of nginx as a Pod named nginx-1:
+   - Deploy the latest version of nginx as a Pod named nginx-1:
 
-        kubectl run nginx-1 --image nginx:latest
+       kubectl run nginx-1 --image nginx:latest
 
-        - Result: pod/nginx-1 created
-
-
-    - View all the deployed Pods in the active context cluster:
-
-        kubectl get pods
+       - Result: pod/nginx-1 created
 
 
-    - Set environment variable for Pod name to avoid possible spelling/typing errors
+   - View all the deployed Pods in the active context cluster:
 
-        export my_nginx_pod=nginx-1
-
-
-    - Make sure environment variable is set
-
-        echo $my_nginx_pod
-
-        - Result: nginx-1
+       kubectl get pods
 
 
-    - View the complete details of the Pod you just created.
+   - Set environment variable for Pod name to avoid possible spelling/typing errors
 
-        kubectl describe pod $my_nginx_pod
+       export my_nginx_pod=nginx-1
+
+
+   - Make sure environment variable is set
+
+       echo $my_nginx_pod
+
+       - Result: nginx-1
+
+
+   - View the complete details of the Pod you just created.
+
+       kubectl describe pod $my_nginx_pod
 
 
 ### Push a file into a container
 
 
-    - Open a file named test.html in the nano text editor.
+   - Open a file named test.html in the nano text editor.
 
-        nano ~/test.html
+       nano ~/test.html
 
 
-    - Add the following text (shell script) to the empty test.html file:
+   - Add the following text (shell script) to the empty test.html file:
 
         <html> <header><title>This is title</title></header>
 			<body> Hello world </body>
 		</html>
 
 
-    - Place the file into the appropriate location within the nginx container in the nginx Pod to be served statically
+   - Place the file into the appropriate location within the nginx container in the nginx Pod to be served statically
 
-        kubectl cp ~/test.html $my_nginx_pod:/usr/share/nginx/html/test.html
+       kubectl cp ~/test.html $my_nginx_pod:/usr/share/nginx/html/test.html
 
     
 ### Expose the Pod for testing
 
     
-    - Create a service to expose our nginx Pod externally:
+   - Create a service to expose our nginx Pod externally:
 
-        kubectl expose pod $my_nginx_pod --port 80 --type LoadBalancer
+       kubectl expose pod $my_nginx_pod --port 80 --type LoadBalancer
 
-        - Result:   0 --type LoadBalancer 
-                    service/nginx-1 exposed
-
-
-    - View details about services in the cluster:
-
-        kubectl get services
+       - Result:   0 --type LoadBalancer 
+                   service/nginx-1 exposed
 
 
-    - Verify that the nginx container is serving the static HTML file that you copied using the External IP from the LoadBalancer.
+   - View details about services in the cluster:
 
-        curl http://34.123.237.132/test.html
+       kubectl get services
 
-    - View the resources being used by the nginx Pod:
 
-        kubectl top pods
+   - Verify that the nginx container is serving the static HTML file that you copied using the External IP from the LoadBalancer.
+
+       curl http://34.123.237.132/test.html
+
+   - View the resources being used by the nginx Pod:
+
+       kubectl top pods
 
 
 
@@ -179,62 +177,62 @@ In this lab, you learn how to perform the following tasks:
 ### Prepare the environment
 
 
-    - Clone the repository to the lab Cloud Shell:
+   - Clone the repository to the lab Cloud Shell:
 
-        git clone https://github.com/GoogleCloudPlatformTraining/training-data-analyst
-
-
-    - Change to the directory that contains the sample files for this lab:
-
-        cd ~/training-data-analyst/courses/ak8s/04_GKE_Shell/
+       git clone https://github.com/GoogleCloudPlatformTraining/training-data-analyst
 
 
-    - Deploy the manifest:
+   - Change to the directory that contains the sample files for this lab:
 
-        kubectl apply -f ./new-nginx-pod.yaml
+       cd ~/training-data-analyst/courses/ak8s/04_GKE_Shell/
+
+
+   - Deploy the manifest:
+
+       kubectl apply -f ./new-nginx-pod.yaml
 
 
 ### Use shell redirection to connect to a Pod
 
 
-    - Start an interactive bash shell in the nginx container:
+   - Start an interactive bash shell in the nginx container:
 
-        kubectl exec -it new-nginx /bin/bash
+       kubectl exec -it new-nginx /bin/bash
 
-        - Result: root@new-nginx:/#
+       - Result: root@new-nginx:/#
 
-    - Install the nano text editor (the pod has no editor installed):
+   - Install the nano text editor (the pod has no editor installed):
         
-        apt-get update
-		apt-get install nano
+       apt-get update
+       apt-get install nano
 
 
-	- Switch to the static files directory and create a test.html file:
+   - Switch to the static files directory and create a test.html file:
 
-		cd /usr/share/nginx/html
-		nano test.html
+       cd /usr/share/nginx/html
+       nano test.html
 
-	- Type in the code:
+       - Type in the code:
 
 	    <html> <header><title>This is title</title></header>
 			<body> Hello world </body>
 		</html>
 
-	- Exit from the pod (root account):
+       - Exit from the pod (root account):
 
 	    exit
 
 
-	- Set up port forwarding from Cloud Shell to the nginx Pod (from port 10081 of the Cloud Shell VM to port 80 of the nginx container):
+       - Set up port forwarding from Cloud Shell to the nginx Pod (from port 10081 of the Cloud Shell VM to port 80 of the nginx container):
 
-	    kubectl port-forward new-nginx 10081:80
+	   kubectl port-forward new-nginx 10081:80
 
-	    - Result: 
+	   - Result: 
 		    Forwarding from 127.0.0.1:10081 -> 80
-			Forwarding from [::1]:10081 -> 80
+	        	Forwarding from [::1]:10081 -> 80
 
 
-	- Test the modified nginx container through the port forwarding:
+       - Test the modified nginx container through the port forwarding:
 
 	    curl http://127.0.0.1:10081/test.html
 
@@ -242,7 +240,7 @@ In this lab, you learn how to perform the following tasks:
 ### View the logs of a Pod
 
 
-    - Display the logs and stream new logs as they arrive (and also include timestamps) for the new-nginx Pod in another cloud shell window:
+   - Display the logs and stream new logs as they arrive (and also include timestamps) for the new-nginx Pod in another cloud shell window:
 
-        kubectl logs new-nginx -f --timestamps
+       kubectl logs new-nginx -f --timestamps
 
